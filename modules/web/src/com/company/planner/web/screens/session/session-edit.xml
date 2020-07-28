@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.planner.web.screens.session">
+    <data>
+        <instance id="sessionDc"
+                  class="com.company.planner.entity.Session"
+        >
+            <view extends="_local">
+                <property name="speaker" view="_minimal"/>
+            </view>
+            <loader/>
+        </instance>
+        <collection id="typesDc" class="com.company.planner.entity.SessionType" view="_local">
+            <loader id="sessionTypesDl">
+                <query>
+                    <![CDATA[select e from planner_SessionType e]]>
+                </query>
+            </loader>
+        </collection>
+
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="sessionDc">
+            <column width="250px">
+                <textField id="topicField" property="topic"/>
+                <lookupField id="typeField" optionsContainer="typesDc"  property="type" />
+                <dateField id="startDateField" property="startDate"/>
+                <textField id="durationField" property="duration"/>
+                <textArea id="descriptionField" property="description" rows="5"/>
+                <dateField id="endDateField" property="endDate"/>
+                <pickerField id="speakerField" property="speaker"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>
